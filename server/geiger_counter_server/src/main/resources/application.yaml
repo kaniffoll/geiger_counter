@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: geiger_counter_server
