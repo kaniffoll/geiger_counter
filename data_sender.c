@@ -24,6 +24,7 @@ short send_as_json(const char *s) {
 
     curl_easy_setopt(curl, CURLOPT_URL, URL);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(json));
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 5L);

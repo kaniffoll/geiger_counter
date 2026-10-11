@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
 class H(BaseHTTPRequestHandler):
-    def do_POST(self):
+    def do_PUT(self):
         n = int(self.headers.get('Content-Length', 0))
         print(self.headers)
         print(self.rfile.read(n).decode())
