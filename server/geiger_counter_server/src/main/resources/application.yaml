@@ -1,3 +1,6 @@
 spring:
   application:
     name: geiger_counter_server
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/geiger
