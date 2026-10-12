@@ -6,9 +6,9 @@
 #define MOCK_ARR_COUNT 10
 
 int main(void) {
-    const char *mock_arr[MOCK_ARR_COUNT] = {"12.3", "32.1", "85.0", "49.3",
-                                            "33.2", "03.2", "24.0", "43.0",
-                                            "35.0", "11.1"};
+    const char *mock_arr[MOCK_ARR_COUNT] = {"0.31", "0.12", "0.83", "0.12",
+                                            "0.12", "0.43", "0.23", "0.17",
+                                            "0.43", "0.17"};
 
     int i = 0;
     while (1) {
