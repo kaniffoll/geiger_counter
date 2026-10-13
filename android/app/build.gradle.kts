@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.kaniffoll.geiger_android_app"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
