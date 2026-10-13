@@ -16,7 +16,6 @@ int main(void) {
             printf("Error: curl\n");
             break;
         }
-        printf("ITTERATION: %d\n", i);
         sleep(3);
     }
     return 0;
