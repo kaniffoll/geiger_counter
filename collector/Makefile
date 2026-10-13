@@ -8,3 +8,6 @@ fake:
 
 run:
 	./a.out /dev/cu.usbserial-140                                                                                               12:24:16
+
+fake_run:
+	./a.out
