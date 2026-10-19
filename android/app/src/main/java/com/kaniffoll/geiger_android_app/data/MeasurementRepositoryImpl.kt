@@ -11,7 +11,17 @@ class MeasurementRepositoryImpl(private val geigerApi: GeigerApi) : MeasurementR
                 geigerApi.getAll().map(this@MeasurementRepositoryImpl::toMeasurement)
             )
         } catch (e: Exception) {
-            Result.failure(e);
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getAfter(after: Instant): Result<List<Measurement>> {
+        return try {
+            Result.success(
+                geigerApi.getAfter(after).map(this@MeasurementRepositoryImpl::toMeasurement)
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
