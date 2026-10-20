@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      retries: 5
+
+  server:
+    build: ./server/geiger_counter_server
+    ports:
+      - "8443:8443"
+    environment:
+      SPRING_MONGODB_URI: mongodb://mongo:27017/geiger
+      SERVER_PORT: 8443
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY_STORE: file:/certs/keystore.p12
+      SERVER_SSL_KEY_STORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      SERVER_SSL_KEY_STORE_TYPE: PKCS12
+    volumes:
+      - ./certs/keystore.p12:/certs/keystore.p12:ro
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
