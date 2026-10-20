@@ -1,3 +1,5 @@
+CU ?= /dev/cu.usbserial-140
+
 build:
 	gcc collector.c data_sender.c $$(pkg-config --cflags --libs yyjson) \
 	$$(pkg-config --cflags --libs libcurl)
@@ -7,7 +9,7 @@ fake:
 	$$(pkg-config --cflags --libs libcurl)
 
 run:
-	./a.out /dev/cu.usbserial-140                                                                                               12:24:16
+	./a.out $(CU) 
 
 fake_run:
 	./a.out
