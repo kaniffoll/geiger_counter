@@ -4,7 +4,7 @@
 #define JSON_KEY "geiger_value"
 #define CONTENT_TYPE_HEADER "Content-Type: application/json"
 #define ACCEPT_HEADER "Accept: application/json"
-#define URL "http://localhost:8080"
+#define URL "https://geiger-server:8443"
 
 short send_as_json(const char *s) {
     CURL *curl = curl_easy_init();
@@ -23,6 +23,7 @@ short send_as_json(const char *s) {
     headers = curl_slist_append(headers, ACCEPT_HEADER);
 
     curl_easy_setopt(curl, CURLOPT_URL, URL);
+    curl_easy_setopt(curl, CURLOPT_CAINFO, "ca.crt");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
@@ -32,7 +33,7 @@ short send_as_json(const char *s) {
     CURLcode rc = curl_easy_perform(curl);
 
     if (rc != CURLE_OK)
-        fprintf(stderr, "Error, can't perform curl requese on URL: %s\n", URL);
+        fprintf(stderr, "Error, can't perform curl request on URL: %s\n", URL);
 
     yyjson_mut_doc_free(doc);
     curl_easy_cleanup(curl);
