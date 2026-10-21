@@ -12,3 +12,5 @@ server:
     key-store: classpath:keystore.p12
     key-store-password: ${KEYSTORE_PASSWORD}
     key-store-type: PKCS12
+
+api-key: ${API_KEY}

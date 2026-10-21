@@ -5,11 +5,13 @@
 #define CONTENT_TYPE_HEADER "Content-Type: application/json"
 #define ACCEPT_HEADER "Accept: application/json"
 #define URL "https://geiger-server:8443"
+#define X_API_KEY_PREFIX_SIZE 11
 
 short send_as_json(const char *s) {
     CURL *curl = curl_easy_init();
+    char res[KEY_SIZE + 1];
 
-    if (!curl) {
+    if (!curl || !read_api_key(res)) {
         curl_easy_cleanup(curl);
         return -1;
     }
@@ -21,6 +23,10 @@ short send_as_json(const char *s) {
     struct curl_slist *headers = NULL;
     headers = curl_slist_append(headers, CONTENT_TYPE_HEADER);
     headers = curl_slist_append(headers, ACCEPT_HEADER);
+
+    char x_api_str[KEY_SIZE + X_API_KEY_PREFIX_SIZE + 1];
+    snprintf(x_api_str, sizeof x_api_str, "X-API-Key: %s", res);
+    headers = curl_slist_append(headers, x_api_str);
 
     curl_easy_setopt(curl, CURLOPT_URL, URL);
     curl_easy_setopt(curl, CURLOPT_CAINFO, "ca.crt");
@@ -35,6 +41,8 @@ short send_as_json(const char *s) {
     if (rc != CURLE_OK)
         fprintf(stderr, "Error, can't perform curl request on URL: %s\n", URL);
 
+    curl_slist_free_all(headers);
+    free((void *)json);
     yyjson_mut_doc_free(doc);
     curl_easy_cleanup(curl);
 

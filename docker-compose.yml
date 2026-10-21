@@ -19,6 +19,7 @@ services:
       SERVER_SSL_ENABLED: "true"
       SERVER_SSL_KEY_STORE: file:/certs/keystore.p12
       SERVER_SSL_KEY_STORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      API_KEY: ${API_KEY}
       SERVER_SSL_KEY_STORE_TYPE: PKCS12
     volumes:
       - ./certs/keystore.p12:/certs/keystore.p12:ro
